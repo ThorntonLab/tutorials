@@ -16,5 +16,5 @@ interface_.
 .. literalinclude:: sqlite_example/process.R
 
 .. _tidyverse: https://www.tidyverse.org/
-.. _dpylr: https://dplyr.tidyverse.org
+.. _dplyr: https://dplyr.tidyverse.org
 .. _interface: https://db.rstudio.com/dplyr/
