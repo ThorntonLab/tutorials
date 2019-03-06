@@ -11,3 +11,5 @@ df = pd.DataFrame(data, columns=Datum._fields)
 
 with sqlite3.connect("test.db") as conn:
     df.to_sql('data', conn, if_exists='replace',index=False)
+    conn.execute('create index index_x on data(x)')
+
