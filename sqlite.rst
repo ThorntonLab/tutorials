@@ -15,6 +15,8 @@ The code for these examples is included in the repo, in the `sqlite_example` dir
 here because GitHub doesn't allow the `literalinclude` directive.  The versions here have more detailed
 comments.
 
+If you don't understand why `__slots__` matters, then get a copy of "Fluent Python".
+
 .. code-block:: python
 
     import sqlite3
@@ -24,7 +26,7 @@ comments.
     # Create a data type for our data.
     # Named tuples are more storage-efficient
     # than a typical Python class, as they
-    # use __slots__.  Member acccess 
+    # use __slots__.  Member access 
     # is via the field names, which are x 
     # and y here.
     # Oddly, the string used for the 
@@ -35,7 +37,7 @@ comments.
     data = [Datum(1, i) for i in range(10)]
     data.extend([Datum(2, i*i) for i in range(11, 21)])
 
-    # MAke a data frame and send it do a database.
+    # Make a data frame and send it do a database.
     df = pd.DataFrame(data, columns=Datum._fields)
 
     # NOTE: here is where you have to worry 
@@ -90,6 +92,25 @@ then you need a two-step pipeline:
 
 1. Do what you can in the query and collect it.
 2. Do the rest on what you get from the query.
+
+FAQ
+===========================================================
+
+* Why not just grow a data frame directly, or numpy arrays?
+
+  "This is more Pythonic :)". Python lists are very efficient, as are tuples.
+  Data frames are relatively slow to grow in memory, as adding a row results in
+  lots of columns getting reallocated.
+
+* What dplyr verbs are not SQL verbs?
+
+  I forget, but they exist. You'll get a weird error when you hit them.
+
+* Isn't using `_fields` dangerous?
+
+  Technically, yes, as it is a protected class member. However,
+  it has been stable for years.
+
 
 .. _tidyverse: https://www.tidyverse.org/
 .. _dplyr: https://dplyr.tidyverse.org
